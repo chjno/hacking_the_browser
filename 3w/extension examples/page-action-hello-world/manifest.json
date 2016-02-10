@@ -1,0 +1,16 @@
+{
+  "name": "Page Action Hello World",
+  "manifest_version": 2,
+  "version": "0.1",
+  "page_action": {
+    "default_icon": "page-icon.png",
+    "default_title": "Page Action Hello World",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
