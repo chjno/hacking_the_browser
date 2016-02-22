@@ -1,0 +1,26 @@
+{
+  "extName": {
+    "message": "sound on click"
+  },
+  "check": {
+    "message": "check to enable the sound."
+  },
+  "loadingSound": {
+    "message": "refresh and loading sound."
+  },
+  "switchTabsSound": {
+    "message": "switch tabs sound."
+  },
+  "save": {
+    "message": "save"
+  },
+  "volume": {
+    "message": "General volume"
+  },
+  "saved": {
+    "message": "Options saved!."
+  },
+  "extDes": {
+    "message": "makes navigation sounds."
+  }
+}

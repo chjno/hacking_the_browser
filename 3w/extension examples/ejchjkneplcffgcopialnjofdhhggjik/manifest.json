@@ -1,0 +1,18 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+"name": "__MSG_extName__",
+"description": "__MSG_extDes__",
+   "background":{
+"scripts":[ "background.js"]
+},
+"manifest_version": 2,
+      "permissions": [ "tabs" ],
+"default_locale":"en",
+   "icons": {"16": "icon_16.png",
+             "48": "icon_48.png",
+             "128": "icon_128.png"},
+"options_page": "options.html",
+"offline_enabled": true,
+   "version": "5.0.1.61"
+}
