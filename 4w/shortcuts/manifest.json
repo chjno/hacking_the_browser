@@ -9,5 +9,6 @@
 	"background": {
 		"scripts": ["background.js"]
 	},
-	"offline_enabled": true
+	"offline_enabled": true,
+	"permissions": ["tabs"]
 }
