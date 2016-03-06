@@ -1,0 +1,48 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "name": "Shortcut Manager",
+  "version": "0.8.0",
+  "manifest_version": 2,
+
+  "description" : "Customize shortcut keys; Assign any Javascript code or browser actions to any key strokes.",
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": ["util.js",
+             "i18n_light.js",
+             "key_util.js",
+             "data_format_light.js",
+             "shortcut_manager.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "browser_action": {
+    "default_title": "Shortcut Manager",
+    "default_icon": {
+      "19": "icon_19_19.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "32": "icon_32_32.png",
+    "64": "icon_64_64.png",
+    "128": "icon_128_128.png"
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "options_page": "options.html",
+
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}

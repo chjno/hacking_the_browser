@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Captured image</title>
+</head>
+<body>
+  <table style="width:100%; height:100%" summary="The whole view">
+  <tr>
+    <td>
+      <span i18n="1">
+        Captured the JPEG image (<span i18n="1">shown in the 75% scale</span>)
+      </span>:
+      <a id="url"></a>.<br>
+      <span i18n="1">Right-Click
+      "<span i18n="1">Save this image as...</span>"
+      , and </span>
+      <span i18n="1">you can download this image.</span>
+    </td>
+  </tr>
+  <tr valign="middle" style="background-color:gray">
+    <td align="center">
+      <img style="width:75%; height:75%" id="data" src="" alt="captured image"/>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript">
+if (location.search.match(/[&?]url=([^&]+)/)) {
+  var value = decodeURIComponent(RegExp.$1);
+  var url = document.getElementById('url');
+  url.innerHTML = value;
+  url.href = value;
+}
+if (location.search.match(/[&?]data=([^&]+)/)) {
+  var value = decodeURIComponent(RegExp.$1);
+  var data = document.getElementById('data');
+  data.src = value;
+}
+</script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="i18n.js"></script>
+</body>
+</html>

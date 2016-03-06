@@ -1,0 +1,14 @@
+{
+	"name": "shortcuts-test",
+	"manifest_version": 2,
+	"version": "0.1",
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"js": ["jquery.js", "content.js"]
+	}],
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"offline_enabled": true,
+	"permissions": ["tabs", "bookmarks", "sessions"]
+}

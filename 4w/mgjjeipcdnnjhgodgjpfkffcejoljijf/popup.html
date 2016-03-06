@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body {
+  font-size: 10pt;
+  font-family: Arial;
+}
+table {
+  font-size: 10pt;
+  color: #336;
+  border-collapse: collapse;
+  margin: 10px 3px;
+}
+table tr {
+  cursor: pointer;
+  background-color: white;
+}
+tr.enabled {
+  color: black;
+  background-color: #efe;
+}
+tr.disabled {
+  color: #99c;
+}
+tr:hover {
+  background-color: #eef;
+}
+table tr:first-child {
+  cursor: text;
+}
+table tr:hover:first-child {
+  background-color: white;
+}
+table td {
+  white-space: nowrap;
+  padding: 4px 7px;
+  border: 1px solid #6CF;
+}
+div, a {
+  white-space: nowrap;
+}
+#noresult {
+  border: 1px solid #6CF;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+</style>
+<script src="util.js"></script>
+<script src="background_util.js"></script>
+<script src="mock_xhr.js"></script>
+<script src="data_format_light.js"></script>
+<script src="data_format.js"></script>
+</head>
+<body>
+<div id="header" style="display:none">
+  <div><span i18n="1">Available shortcuts on</span>:<br>
+    <select id="urls" style="max-width:300px"></select>
+  </div>
+</div>
+<table id="table" style="display:none"></table>
+<div id="noresult" style="display:none">
+  <div i18n="1">No available shortcut keys on this page.</div>
+  <div i18n="1">If you add a new shortcut, it's not available until you reload the page.</div>
+  <div i18n="1">Click the link below to add new shortcut keys.</div>
+</div>
+<div align="right" style="margin-bottom: 10px; display:none" id="footer">
+  <nobr><a id="option" href="javascript:void(0)" i18n="1">See all settings / Add new shortcuts</a></nobr>
+</div>
+<div id="error"></div>
+<script src="i18n.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

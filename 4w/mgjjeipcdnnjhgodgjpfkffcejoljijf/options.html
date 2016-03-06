@@ -1,0 +1,336 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Shortcut Manager : options</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f6f6f6;
+}
+label {
+  font-size: 10pt;
+}
+table td {
+  padding: 5px;
+  vertical-align: top;
+}
+textarea, input[type="text"] {
+  font-size: 11pt;
+  font-family: monospace;
+  width: 100%;
+}
+h2 {
+  font-weight: bold;
+  font-style: italic;
+  margin: 0px;
+}
+select {
+  font-size: 10pt;
+  padding: 2px;
+}
+option {
+  margin-bottom: 2px;
+  margin: 5px;
+  line-height: 2em;
+}
+#func {
+  min-height: 150px;
+}
+#code {
+  min-height: 200px;
+}
+.expl {
+  margin-left: 20px;
+  font-size: 9pt;
+  font-style: italic;
+}
+.code {
+  font-size: 9pt;
+  font-style:normal;
+  font-family: monospace;
+  white-space: nowrap;
+}
+input[readonly], textarea[readonly] {
+  color: gray;
+  background-color: #eee;
+}
+label.disabled {
+  color: gray;
+}
+.disabled select, .disabled textarea, .disabled input[type="text"] {
+  background-color: #eee;
+  color: gray;
+}
+.context {
+  font-style: normal;
+  font-size: 9pt;
+  margin-top: 20px;
+}
+.maintable {
+  border-collapse: collapse;
+}
+.maintable > tbody > tr > td {
+  border: 7px solid #bbf;
+}
+.maintable > tbody > tr > td:first-child div {
+  padding: 4px;
+  font-size: 10pt;
+}
+#rightside td {
+  padding: 3px;
+}
+#rightside label {
+  display: block;
+}
+#rightside > tbody > tr > td:first-child {
+  white-space: nowrap;
+  text-align: right;
+  font-size: 12pt;
+  font-weight: bold;
+  font-style: italic;
+}
+#rightside > tbody > tr > td > input[type="text"] {
+  width: 100%;
+  font-size: 12pt;
+  font-family: monospace;
+}
+#shortcutError {
+  font-size: 9pt;
+}
+#exportMessage {
+  margin-left: 16px;
+  display:none;
+  font-style: italic;
+}
+#exportCancel {
+  display: none;
+}
+#langpref {
+  font-size: 10pt;
+  padding: 10px 0px;
+}
+#langpref select {
+  margin: 0px;
+  padding: 0px;
+}
+#import {
+  min-height: 150px;
+}
+#keylistTable {
+  border-collapse: collapse;
+  margin: 10px 30px;
+  font-size: 10pt;
+}
+#keylistTable td, #keylistTable th {
+  text-align: left;
+  border: 1px solid #666;
+}
+#keylistTable td {
+  padding: 1px 5px;
+}
+#keylistTable th {
+  padding: 3px;
+}
+#keylistTable .section {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  padding: 10px 0 5px 0px;
+  font-style: italic;
+  font-size: 11pt;
+}
+#misc a {
+  color: #444;
+  font-style: italic;
+  margin-right: 2em;
+}
+</style>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="background_util.js"></script>
+<script type="text/javascript" src="key_util.js"></script>
+<script type="text/javascript" src="browser_actions.js"></script>
+<script type="text/javascript" src="mock_xhr.js"></script>
+<script type="text/javascript" src="data_format_light.js"></script>
+<script type="text/javascript" src="data_format.js"></script>
+</head>
+<body>
+<table class="maintable" width="100%" height="100%" id="manage_table">
+  <tr>
+    <td id="left" width="30%" height="1px">
+      <h2>Shortcut Manager:</h2>
+      <div>
+        <label>
+          <nobr>
+            <input type="radio" name="listmode" id="funclist" checked="checked"/>
+            <span i18n="1">Your shortcuts</span>
+          </nobr>
+        </label>
+        <label>
+          <wbr/>
+          <nobr>
+            <input type="radio" name="listmode" id="keylist"/>
+            <span i18n="1">All shortcuts list</span>
+          </nobr>
+        </label>
+      </div>
+      <div id="funclistDiv">
+        <div id="exportMessage">
+          <div i18n="1">Please select your settings you want to export.</div>
+          <div i18n="1">You can use "Ctrl+Click" or "Shift+Click" to select
+            multiple settings.</div>
+          <div i18n="1">Then click "<span i18n="1">Export your settings</span>" again to finish.</div>
+        </div>
+        <select style="width:100%" size="2" id="nameSelect"></select>
+        <div>
+          <button id="addButton" i18n="1">Add a new shortcut</button>
+        </div>
+      </div>
+    </td>
+    <td id="right" width="70%" rowspan=2>
+      <table id="rightside">
+        <tr>
+          <td style="height:3em">
+            <span style="color:red; display:none" id="notsaved">
+              * <span i18n="1">not saved</span> *
+            </span>
+          </td>
+          <td style="text-align: left">
+            <button id="saveButton" style="min-width:80px;"
+                    disabled="disabled" style="min-width:80px;" i18n="1">Save</button>
+            <button id="disableButton" i18n="1">Disable</button>
+            <button id="enableButton" style="display:none" i18n="1">Enable</button>
+            <button id="delButton" style="float:right" i18n="1">Delete [d]</button>
+          </td>
+        </tr>
+        <tr>
+          <td><span i18n="1">Shortcut key</span>:</td>
+          <td>
+            <input id="shortcut" style="max-width:400px" type="text" autocomplete="off">
+            <button id="keyclear" i18n="1">Clear</button>
+            <br>
+            <div class="expl">
+              <span i18n="1">Examples</span>:
+              <span style="font-style:normal">
+                [Alt+b], [Ctrl+Shift+F6], [l o v e] (= type "l", "o", "v", "e" sequentially)
+              </span><br>
+              <div id="shortcutError">&nbsp;</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><span i18n="1">URL patterns</span>:</td>
+          <td>
+            <textarea id="url"></textarea>
+            <div class="expl">
+              <b i18n="1">This shortcut is available only in URLs that match the specified patterns.</b><br>
+              <span i18n="1">"*" is a wildcard character.</span>
+              <span i18n="1">One URL pattern per line.</span><br>
+              <span i18n="1">Example (inclusion)</span>
+              : "<span class="code">http://*.google.*/search?*</span>", "<span class="code">https://*</span>"<br>
+              <span i18n="1">Example (removal)</span>
+              : "<span class="code">-http://*.google.co.jp/search?*</span>"
+              (<span i18n="1">starts with "-"</span>)
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span i18n="1">Action</span>:
+          </td>
+          <td>
+            <label>
+              <input type="radio" name="p" id="browserContext"/>
+                <span i18n="1">Browser action</span>:
+              <select id="browserAction"></select>
+              <div style="margin-left: 50px">
+                <div id="arg0"></div>
+                <div id="arg1"></div>
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="p" id="userContext" checked="checked"/>
+              <span i18n="1">Execute Javascript</span>:<br>
+              <div style="margin-left: 2em; margin-top:0.5em;">
+                <div>
+                  (1) 
+                  <span i18n="1">Load and execute external Javascript file(s)</span>:
+                  (<span i18n="1">optional</span>)
+                  <div style="margin-left:2em;" class="expl">
+                    (<span i18n="1">Example</span>:
+                    "<span class="code">http://www.foobar.com/yourscript.js</span>")
+                  </div>
+                  <textarea id="files"></textarea>
+                </div>
+                <div style="margin-top:0.5em;">
+                  (2)
+                  <span i18n="1">
+                    Then execute Javascript below (<span i18n="1">optional</span>)
+                  </span>:
+                  <div id="funcExampleDiv">
+                    <div style="margin-left:2em" class="expl">
+                      <span i18n="1">Example</span>-1
+                      (<span i18n="1">Javascript code</span>):
+                      <span class="code">location.reload();</span>
+                    </div>
+                    <div style="margin-left:2em;" class="expl">
+                      <span i18n="1">Example</span>-2 (<span i18n="1">Bookmarklet code</span>):
+                      <span class="code">javascript:alert(%22test%22)</span>
+                    </div>
+                  </div>
+                  <textarea id="func"></textarea>
+                </div>
+              </div>
+            </label>
+            <textarea  id="code" style="display:none"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td width=1px><span i18n="1">Description</span>:</td>
+          <td width=100%>
+            <input id="name" type="text" autocomplete="off"/>
+          </td>
+        </tr>
+      </table>
+      <div id="keylistDiv" style="display:none">
+        <table id="keylistTable">
+        </table>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div id="settingDiv">
+        <div>
+          <button id="export" i18n="1">Export your settings</button>
+          <button id="exportCancel" i18n="1">Cancel</button>
+        </div>
+        <div id="importDiv">
+          <button id="importButton" i18n="1">Import settings</button>
+          <div id="importSubDiv" style="display:none; padding-left: 15px;">
+            <span i18n="1">Specify URL of the setting file, or</span>
+            <span i18n="1">copy and paste the settings directly.</span>
+            <textarea id="import"></textarea>
+            <div style="text-align:right">
+              <button i18n="1" id="importDone">Done</button>
+            </div>
+          </div>
+        </div>
+        <div id="langpref">
+          <span i18n="1">Language</span>:
+          <select id="langs"></select>
+        </div>
+        <div id="misc">
+          <a i18n="1" href="updates.html" target="_blank">Update History</a>
+          <a i18n="1" href="help.html" target="_blank">Help</a>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+<textarea style="display:none" id="localData"></textarea>
+
+<script src="i18n.js"></script>
+<script type="text/javascript" src="options.js"></script>
+</body>
+</html>

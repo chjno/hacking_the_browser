@@ -1,0 +1,117 @@
+
+{
+  
+  window index
+  window id
+  window focused
+
+  tab index
+  tab id
+  url
+  tab selected
+
+}
+
+tab actions
+
+{
+  open new tab
+  open url in new tab alt + enter (selected)
+  open url in new tab cmd + enter (background)
+  reopen closed tab(s) (ignore when reopening multiple tabs)
+
+  close tab
+
+  next tab
+  previous tab
+  jump to tab
+  jump to last tab
+}
+
+tab actions to ignore
+
+{
+  open tab in new window
+  close window
+  open special chrome pages
+  view source
+
+}
+
+window actions
+
+{
+  open new window (url == new tab)
+    {
+      windows.onCreated, window = [object Object]
+      tabs.onCreated, tab = [object Object]
+      tabs.onActivated, activeInfo = [object Object]
+      windows.onFocusChanged, windowId = 1725
+    }
+
+  open link in new window (url == url?)
+    {
+      windows.onCreated, window = [object Object]
+      tabs.onCreated, tab = [object Object]
+      tabs.onActivated, activeInfo = [object Object]
+      windows.onFocusChanged, windowId = 1714
+    }
+
+  close window(s)
+    {
+      tabs.onRemoved, tabId = 1718, removeInfo = [object Object]
+      windows.onFocusChanged, windowId = -1
+    }
+
+    {
+      tabs.onRemoved, tabId = 1723, removeInfo = [object Object]
+      tabs.onActivated, activeInfo = [object Object]
+      tabs.onRemoved, tabId = 1721, removeInfo = [object Object]
+      windows.onFocusChanged, windowId = -1
+    }
+
+  open incognito window
+  open link in incognito window
+  minimize
+}
+
+page actions
+
+{
+  back (but there's swipe)
+  forward (but there's swipe)
+  reload
+}
+
+text actions
+
+{
+  copy
+  cut
+  paste
+
+}
+
+chrome pages
+
+{
+  settings
+  downloads
+  extensions
+  history
+  bookmark manager
+}
+
+misc
+
+{
+  go to omnibar
+
+  enter fullscreen
+  enter presentation mode
+
+  view source
+  javascript console
+  bookmark page
+  bookmark all tabs
+}
