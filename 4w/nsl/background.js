@@ -1,4 +1,4 @@
-console.log('begin living and learning 1');
+console.log('begin living and learning');
 
 var metaPressed = false;
 var altPressed = false;
@@ -40,9 +40,6 @@ function getWindows(poop) {
         currentWindowIndex = i;
         currentWindowId = allWindows[i].id;
       } else {
-
-        // BOOKMARK
-
         if (allWindows[i].state == 'minimized') {
           minimizedCount++;
         }
@@ -78,14 +75,6 @@ function getWindows(poop) {
       currentMinimizedCount = countMinimized(minimizedCount);
     }
 
-
-    // switch (poop){
-    //   case 'switchTab':
-    //     switchTab();
-    //     break;
-    //   case 'switchWindow':
-
-    // }
     if (poop == 'switchTab' && sameWindow) {
       switchTab(tabJump);
     }
@@ -95,8 +84,6 @@ function getWindows(poop) {
 
   console.log('got windows');
 
-  // tabClosing = false;
-  // windowClosing = false;
 };
 
 function countMinimized(count) {
@@ -104,7 +91,6 @@ function countMinimized(count) {
 }
 
 function switchTab(jump) {
-  // console.log(jump);
   if (jump == 1) {
     if (!ctrlPressed) {
       // alert('next tab');
@@ -127,7 +113,6 @@ function switchTab(jump) {
     }
   }
   tabCreated = false;
-  // jump = null;
 }
 
 function switchWindow(minimized) {
@@ -156,6 +141,9 @@ chrome.tabs.onCreated.addListener(function(tab) {
   console.log('tabs.onCreated, tab = ');
   console.log(tab);
 
+  /*
+      if same window
+  */
   if (!windowCreated) {
 
     tabCreated = true;
@@ -203,6 +191,9 @@ chrome.tabs.onCreated.addListener(function(tab) {
         shortcutPolice('viewing the current page source', 'cmd + alt + U');
       }
 
+    /*
+        if not special chrome page
+    */
     } else {
       if (tab.url == lastClosedUrl && tab.url != 'chrome://newtab/') {
         if (!metaPressed && !shiftPressed) {
@@ -226,7 +217,11 @@ chrome.tabs.onCreated.addListener(function(tab) {
         }
       }
     }
-  } else { // window created
+
+  /*
+      if new window
+  */
+  } else {
     if (lastClosedUrl.length == 1 && lastClosedUrl[0] == 'chrome://newtab/') {
       if (!metaPressed) {
         // alert('new window created');
@@ -241,7 +236,6 @@ chrome.tabs.onCreated.addListener(function(tab) {
       }
     } else {
       if (tab.url == 'chrome://newtab/') {
-        // cmd + N
         if (tab.incognito) {
           if (!metaPressed && !shiftPressed) {
             // alert('new incognito window created');
@@ -254,18 +248,14 @@ chrome.tabs.onCreated.addListener(function(tab) {
           }
         }
       } else {
-        // shift + click ???
         if (!shiftPressed) {
           // alert('link opened in new window');
           shortcutPolice('opening a link in a new window', "shift + click a link\nOR\nshift + enter from omnibox");
         }
 
       }
-      // windowCreated = false;
     }
   }
-
-  // getWindows();
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
@@ -286,13 +276,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       }
   }
 
-  // if (changeInfo.url == 'chrome://settings/clearBrowserData'){
-  //   if (!metaPressed && !shiftPressed){
-  //     alert('open clear browser data');
-  //   }
-
-  // }
-
   if (!tabCreated && changeInfo.status == 'loading') {
     if (changeInfo.url == null) {
       // console.log('reload');
@@ -300,22 +283,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         // alert('reload');
         shortcutPolice('reloading the page', 'cmd + R');
       }
-    } else {
-      // url = changeInfo.url;
     }
   }
-
-  // if (!windowCreated){
-
-  // }
 
   if (changeInfo.status == 'complete') {
     windowCreated = false;
     tabCreated = false;
     console.log('resetting tabCreated / windowCreated');
   }
-
-
 
 });
 
@@ -336,15 +311,6 @@ chrome.tabs.onZoomChange.addListener(function(zoomChangeInfo) {
     }
 
   }
-  // }
-
-
-  // if (!windowCreated){
-
-  // }
-
-
-
 
 });
 
@@ -385,7 +351,6 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 
   if (removeInfo.isWindowClosing) {
     windowClosing = true;
-    // ignore tabs.onActivated and windows.onFocusChanged until getRecentlyClosed();
 
     if (!closedWindowIds.includes(removeInfo.windowId)) {
       closedWindowIds.push(removeInfo.windowId);
@@ -400,7 +365,9 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 
     tabClosing = true;
 
-    // if closing window only had one tab
+    /*
+        if closing window only had one tab
+    */
     if (windowsObj.windwId == undefined) {
       windowClosing = true;
     }
@@ -416,8 +383,6 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
     getWindows();
   }
 
-  // getWindows();
-
 });
 
 var windowCreated = false;
@@ -432,7 +397,6 @@ chrome.windows.onCreated.addListener(function(window) {
 
 });
 
-// var windowMinimizing;
 chrome.windows.onFocusChanged.addListener(function(windowId) {
   console.log('windows.onFocusChanged, windowId = ');
   console.log(windowId);
@@ -462,15 +426,8 @@ chrome.bookmarks.onCreated.addListener(function(id, bookmark) {
     // alert('bookmark created');
     shortcutPolice('bookmarking a page', 'cmd + D');
   }
-  // cmd + D
 
 });
-
-
-
-// chrome.runtime.onStartup.addListener(function(){
-//   console.log('runtime.onStartup');
-// });
 
 function getRecentlyClosed() {
   lastClosedUrl = [];
@@ -492,8 +449,6 @@ function getRecentlyClosed() {
 
   });
 
-  // windowClosing = false;
-  // tabClosing = false;
 };
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
@@ -524,7 +479,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       break;
   }
   console.log(message);
-  setTimeout(resetKeys, 1000);
+  setTimeout(resetKeys, 500);
 });
 
 function resetKeys() {
@@ -532,6 +487,7 @@ function resetKeys() {
   altPressed = false;
   shiftPressed = false;
   ctrlPressed = false;
+  console.log('keys reset');
 }
 
 function shortcutPolice(action, shortcut) {

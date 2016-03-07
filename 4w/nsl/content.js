@@ -1,4 +1,4 @@
-console.log('begin living and learning 1');
+console.log('begin living and learning');
 
 var metaPressed = false;
 var altPressed = false;

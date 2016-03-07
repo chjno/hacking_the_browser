@@ -1,0 +1,45 @@
+tab actions
+
+  open new tab
+  open url in new tab alt + enter (selected)
+  open url in new tab cmd + enter / cmd + click (background)
+  close tab
+  next tab
+  previous tab
+  jump to tab
+  jump to last tab
+  reopen closed tab(s)
+
+window actions
+
+  open new window
+  open link in new window
+  close window(s)
+  open incognito window
+  open link in incognito window
+  minimize
+
+page actions
+
+  back (but there's swipe)
+  forward (but there's swipe)
+  reload
+  bookmark page
+  bookmark all tabs
+
+chrome pages
+
+  view source
+  settings
+  downloads
+  history
+  bookmark manager
+  clear browser data
+
+misc
+
+  go to omnibar
+  enter fullscreen
+  enter presentation mode
+  javascript console
+  toggle bookmarks bar

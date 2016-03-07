@@ -1,5 +1,5 @@
 {
-	"name": "shortcuts-test",
+	"name": "No Shortcuts in Life",
 	"manifest_version": 2,
 	"version": "0.1",
 	"content_scripts": [{
@@ -10,5 +10,5 @@
 		"scripts": ["background.js"]
 	},
 	"offline_enabled": true,
-	"permissions": ["tabs", "bookmarks", "sessions", "storage"]
+	"permissions": ["tabs", "bookmarks", "sessions"]
 }

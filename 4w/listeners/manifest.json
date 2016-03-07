@@ -1,0 +1,10 @@
+{
+  "name": "chrome API events",
+  "manifest_version": 2,
+  "version": "0.1",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "offline_enabled": true,
+  "permissions": ["tabs", "bookmarks", "sessions", "storage"]
+}
