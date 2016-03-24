@@ -53,11 +53,9 @@ $(function () {
 
 function getPositionOptions() {
   var positionOptions = {
-    enableHighAccuracy: false, // when true, a more accurate position is
-    // returned when possible (may take longer or use more battery power)
-    timeout: Infinity, // will never stop attempting to locate
+    enableHighAccuracy: false,
+    timeout: Infinity,
     maximumAge: 0 };
-  // can use a cached/old position
   return positionOptions;
 }
 

@@ -20,3 +20,15 @@
   top: 0;
   right: 0;
 }
+
+#cam {
+  position: relative;
+  width: 640px;
+  height: 480px;
+}
+
+#window {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
